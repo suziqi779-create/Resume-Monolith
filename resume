@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ziqi Su - Monolith Custom Resume</title>
+    <style>
+        :root {
+            --bg-color: #0b130e; /* 五彩斑斓的黑：带有深绿底色的黑 */
+            --text-main: #f4f7f5; /* 略带暖意、透气的白 */
+            --text-muted: #8fa499; /* 灰绿，低调有质感 */
+            --accent-green: #2e8b57; /* 凉爽初夏的深绿 */
+            --laser-glow: rgba(46, 139, 87, 0.4);
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 斑驳树影与清晨阳光的光影意境 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(46, 139, 87, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* 连贯下滑的透气布局 */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            background: rgba(11, 19, 14, 0.8);
+            border-left: 1px solid rgba(46, 139, 87, 0.15); /* 模拟锋芒感的隐性切割线 */
+            position: relative;
+        }
+
+        /* 核心符号：圆（永远保持求知欲的未知周长） */
+        .circle-accent {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            width: 80px;
+            height: 80px;
+            border: 1px dashed rgba(46, 139, 87, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* 顶部信息 */
+        header {
+            margin-bottom: 80px;
+        }
+
+        .name-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        /* 激光切割的线性线索 */
+        .name-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 60px;
+            height: 1px;
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--laser-glow);
+        }
+
+        .contact-info {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        .contact-info span {
+            margin-right: 20px;
+        }
+
+        /* 大面积留白的区块设计 */
+        section {
+            margin-bottom: 70px;
+        }
+
+        /* 带有锋芒感的无衬线标题 */
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--accent-green);
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: '■';
+            font-size: 8px;
+            margin-right: 10px;
+            color: var(--accent-green);
+            opacity: 0.7;
+        }
+
+        .timeline-item {
+            margin-bottom: 45px;
+            position: relative;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+        }
+
+        .item-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .item-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-align: right;
+        }
+
+        .sub-title {
+            font-size: 0.95rem;
+            color: var(--accent-green);
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        /* 细腻平滑的列表描述 */
+        ul {
+            list-style: none;
+        }
+
+        li {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+            font-weight: bold;
+        }
+
+        .highlight {
+            color: #bbf2d6; /* 亮色，用于标明商业产出/数据结果 */
+            font-weight: 500;
+        }
+
+        /* 契合Monolith话语体系的“算力、数据、算法”特殊容器 */
+        .capability-block {
+            background: rgba(46, 139, 87, 0.03);
+            border: 1px solid rgba(46, 139, 87, 0.08);
+            padding: 25px;
+            margin-bottom: 35px;
+            border-radius: 2px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* 细腻平滑的微动效 */
+        }
+
+        .capability-block:hover {
+            background: rgba(46, 139, 87, 0.05);
+            border-color: rgba(46, 139, 87, 0.2);
+            transform: translateX(3px);
+        }
+
+        .capability-tag {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #bbf2d6;
+            margin-bottom: 15px;
+            display: inline-block;
+            border-bottom: 1px solid rgba(46, 139, 87, 0.3);
+            padding-bottom: 2px;
+        }
+
+        /* 底部留白透气声明 */
+        footer {
+            margin-top: 100px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            border-top: 1px solid rgba(46, 139, 87, 0.1);
+            padding-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+
+    <header>
+        <h1 class="name-title">苏子琦</h1>
+        <div class="contact-info">
+            <span>📇 +86 15602800028</span>
+            <span>✉️ suziqi@zju.edu.cn</span>
+            <span>📍 浙江杭州</span>
+        </div>
+    </header>
+
+    <section>
+        <h2>教育经历 / Education</h2>
+        
+        <div class="timeline-item">
+            <div class="item-header">
+                <div class="item-title">浙江大学</div>
+                <div class="item-meta">2024.09 – 至今<br>本科在读</div>
+            </div>
+            <div class="sub-title">工商管理 (2024级/2028届)</div>
+            <ul>
+                <li><span class="highlight">GPA：4.42 / 5.00</span></li>
+                <li>主修核心课程：战略管理（5.0/5.0）、创新管理（5.0/5.0）、财务管理、宏观经济学、伦理与社会责任等</li>
+            </ul>
+        </div>
+
+        <div class="timeline-item">
+            <div class="item-header">
+                <div class="item-title">牛津大学 (University of Oxford)</div>
+                <div class="item-meta">2026.02</div>
+            </div>
+            <div class="sub-title">Oxford Prospect Programme (OPP) 交流生</div>
+            <ul>
+                <li>Module：Business, Finance and Management (BFM)</li>
+                <li><span class="highlight">Grade：Excellent (A-)</span></li>
+                <li>Assessment：Academic Group Project with Presentation (<span class="highlight">Rank 1st</span>)、Film Project (<span class="highlight">Rank 1st</span>)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2> 项目经历 / Multi-Dimensional Alpha</h2>
+
+        <div class="capability-block">
+            <span class="capability-tag">I. 算力 (智力、体力、心力) / 复杂项目全案管理</span>
+            <div class="timeline-item" style="margin-bottom: 0;">
+                <div class="item-header">
+                    <div class="item-title">校级艺术团黑白剧社：AI实验话剧《非人类嫌疑》</div>
+                    <div class="item-meta">总制作人<br>2025.08 – 2025.12</div>
+                </div>
+                <ul>
+                    <li><span class="highlight">全生命周期重度管理</span>：主导从Idea孵化到线下落地的全流程，管理10+人主创团队，高强度协同AIGC技术应用与艺术表达，具备极强的自驱力与复杂难题推进力。</li>
+                    <li><span class="highlight">多模态AI原生Taste</span>：熟练运用生成式AI进行深度内容协同，使用Gemini优化剧本情绪张力、Midjourney/Luma AI迭代舞美视觉与宣发海报、Suno生成话剧作品BGM和主题曲。</li>
+                    <li><span class="highlight">落地与闭环复盘</span>：2025年12月于浙大紫金港成功首演，吸引近百名观众，座无虚席。演出后组织技术顾问、主创团队及数十位观众代表展开深度“演后谈”，在不确定性中捕捉AI X 戏剧交叉赛道的全新信号。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="capability-block">
+            <span class="capability-tag">II. 数据 (沉淀、实践) / 自然语言处理与自动化流水线</span>
+            
+            <div class="timeline-item" style="margin-bottom: 25px;">
+                <div class="item-header">
+                    <div class="item-title">70万级电商橱窗全链路需求分析系统 (面朝科技横向课题)</div>
+                    <div class="item-meta">独立负责人<br>2026.01 - 2026.03 </div>
+                </div>
+                <ul>
+                    <li><span class="highlight">大语言模型工程落地</span>：深度参与大健康产品选品算法开发，独立负责 70w+ 真实电商橱窗评论的清洗与提取。</li>
+                    <li><span class="highlight">结构化特征提取 Pipeline</span>：通过设计高精度JSON输出Prompt，构建基于LLM的自动化工作流，成功实现对意向等级、购买驱动力等五大维度评分及新场景发现的结构化提取，为选品算法提供精准的底层数据支持。</li>
+                </ul>
+
+                <div class="item-header" style="margin-top: 25px;">
+                    <div class="item-title">境外酒店舆情大数据分析及消费者行为实证研究</div>
+                    <div class="item-meta">研究助理 (RA)<br>2025.10 至今</div>
+                </div>
+                <ul>
+                    <li><span class="highlight">海量多维文本挖掘</span>：在浙大孙怡夏副教授课题组中，独立分析Booking.com等境外平台逾44万条酒店真实用户评论。</li>
+                    <li><span class="highlight">量化情感唤醒验证</span>：熟练运用LIWC 2015和NRC-VAD等专业NLP数据处理工具清洗并量化情感唤醒度 (Arousal)，成功验证了Solo与社交旅行者在情感表达上的显著差异，为精准营销提供实证数据支撑。</li>
+                </ul>
+
+                <div class="item-header" style="margin-top: 25px;">
+                    <div class="item-title">“升学e网通”负面舆情挖掘与自动化分类系统</div>
+                    <div class="item-meta">独立项目<br>2025.11</div>
+                </div>
+                <ul>
+                    <li><span class="highlight">逆向数据获取与标准测试集搭建</span>：针对“升学e网通”APP，编写Python脚本逆向通过官方RSS Feed成功批量抓取并结构化处理735条真实评论。基于Anaconda本地部署开源工具Label-Studio，编写XML标注代码，完成课程内容、企校关系等5大维度的二分类精准数据标注。</li>
+                    <li><span class="highlight">大模型本地微调与混淆矩阵复盘</span>：使用Ollama在本地部署Mistral-7B-Instruct基础模型，编写自动化情感与话题分类脚本。通过混淆矩阵定量评估零样本 (Zero-shot) 识别率，深度复盘并理清了大模型在处理隐喻、“说反话”等特殊语义边界时的教训与优化方案。</li>
+                    <li><span class="highlight">逆向发现“用户行为悖论”</span>：数据统计发现负面情绪占比达 61.6%。通过交叉印证，敏锐挖掘出大量给出5星好评的用户在文本中仍对UI交互与强制购买表达强烈不满的“行为悖论”（收费与企校关系占 23.7%），据此产出APP选型优化与增长战略报告。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="capability-block">
+            <span class="capability-tag">III. 算法 (深度思考、第一性原理、抓主要矛盾)</span>
+            
+            <div class="timeline-item" style="margin-bottom: 0;">
+                <div class="item-header">
+                    <div class="item-title">GenPet 智能宠物数字分身项目</div>
+                    <div class="item-meta">商业与产品设计<br>2026.05</div>
+                </div>
+                <ul>
+                    <li><span class="highlight">第一性原理拆解高斜率赛道</span>：瞄准国内“宠物经济”与“情感陪伴”交叉赛道，从0到1独立推演基于AI驱动的虚拟宠物分身商业模式。通过行业二手数据测算 TAM / SAM / SOM 市场规模，完成对 Midjourney、Luma AI 等前沿多模态工具在宠物垂类的竞品画布分析。</li>
+                    <li><span class="highlight">供应链成本与损益平衡分析</span>：精准建立全生命周期服务模型，利用定价模型推演不同客单价下的订阅制营收矩阵，并对算力成本、API接口调用费用等技术供应链底层成本进行严谨的损益平衡分析 (Break-even Analysis)。</li>
+                </ul>
+
+                <div class="item-header" style="margin-top: 25px;">
+                    <div class="item-title">浙大校园通知聚合系统 (iOS Application)</div>
+                    <div class="item-meta">全栈开发负责人<br>2026.03</div>
+                </div>
+                <ul>
+                    <li><span class="highlight">全栈技术敏捷开发</span>：针对高校通知分散、时效性极差的主矛盾，编写Python实时网络爬虫，异构抓取管院官网、教务处及团委通知。</li>
+                    <li><span class="highlight">高并发系统级数据流闭环</span>：依托GitHub进行版本控制与迭代管理，通过集成Bark接口实现低延迟、高并发的系统级APNs推送管道，完成“抓取-清洗-云端结构化-标签化精准分发”的数据闭环。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>技能储备 / Skills</h2>
+        <ul>
+            <li><strong>语言能力</strong>：英语（CET-6: 602 分）、粤语（母语水平）</li>
+            <li><strong>办公软件</strong>：熟练掌握Microsoft Office (Excel, Word, PowerPoint)、Google Workspace</li>
+            <li><strong>数据分析</strong>：Python(Pandas, NumPy, Scikit-learn), Stata, SPSS, SQL (数据清洗/多维特征提取)</li>
+            <li><strong>AI Engineering</strong>：Codex重度用户，擅长以Vibe Coding调用大模型进行代码重构与全栈敏捷开发，具备独立交付大模型API自动化批处理流水线能力。深入研究Prompt Engineering。</li>
+        </ul>
+    </section>
+
+<section>   
+        <h2>投递宣言 / Cover Letter</h2>
+        
+        <div class="capability-block" style="background: rgba(46, 139, 87, 0.02); padding: 35px; border-left: 2px solid var(--accent-green); position: relative;">
+            <div style="position: absolute; top: 15px; right: 20px; font-size: 1.5rem; opacity: 0.15; font-family: serif; pointer-events: none; color: var(--text-muted);">🦌</div>
+            
+            <p style="font-size: 1.05rem; font-weight: 500; color: #bbf2d6; margin-bottom: 25px; letter-spacing: 1px;">
+                致Monolith：
+            </p>
+            
+            <p style="margin-bottom: 18px; text-align: justify;">
+                2023年，我正在上高三，一周只有6小时休息时间。妈妈把我接到一家寿司店里，她是一位英语老师。吃饭间隙，她向我展示了她用Kimi准备的课程设计，跟我说AI现在1分钟能生成她以前需要3个小时才能完成的内容。我震惊了，这怎么可能？高三的我与手机隔绝，AI对于我来说只是新闻周刊上的概念——23年，政治试卷上都还没有出现AI相关的新质生产力题目。
+            </p>
+            
+            <p style="margin-bottom: 18px; text-align: justify;">
+                但当我用妈妈的手机真的跟Kimi对话后，我突然意识到：不得了！这绝对会成为改变世界的东西。意识到这点后，在网上搜索了月之暗面的投资方。当时网上的消息不多，我只能搜到月之暗面是一家北京的公司，我搜索它背后的资方是谁，无果，没有找到它背后有像腾讯或字节这样的大厂。
+            </p>
+            
+            <p style="margin-bottom: 18px; text-align: justify;">
+                我对妈妈说：<strong style="color: var(--text-main); font-weight: 500;">“要是能买它的股票就好了。”</strong>
+            </p>
+            
+             <p style="margin-bottom: 18px; text-align: justify;">
+                Monolith投资了月之暗面，现在确实不得了了。当然，当时的我并不知道Monolith投资了月之暗面。一直到我上了浙江大学，在财务管理课程上，老师讲到融资相关的内容，我在检索相关资料时，第一次看到Monolith这个名字。我搜了Monolith的公众号：<strong style="color: var(--text-main); font-weight: 500;">这是一家拥有极高审美Taste的投资机构。</strong> 你们选择的公司、你们的文字、你们的VI，都流露出Monolith独特且独到的“审美”。
+             </p>
+            
+            <p style="margin-bottom: 18px; text-align: justify;">
+                在战略管理课上，老师让我们思考自己人生的Vision是什么，我跟Claude深夜对谈，让它问我50个问题，最终梳理出Vision：做未来的书写者。我想，投资，正是在“书写”未来。我每次在消费时都会想，我的钱就是我的选票，我购买的每一个产品，都是在构建我想要的世界。而投资，作为个体消费的无限延伸，则是通过决定资本的流动方向，去真正书写未来、为我们所向往的时代添砖加瓦。我为书写更美好的未来而感到兴奋无比！
+            </p>
+            
+            <p style="margin-bottom: 25px; text-align: justify;">
+                我并非金融科班出身，但我相信自己有你们需要的算力、数据和算法能力。我极度自驱，对未来和高斜率的变化感到无比兴奋。
+            </p>
+            
+            <p style="margin-bottom: 0; text-align: justify; font-weight: 500; color: #bbf2d6;">
+                我渴望加入 Monolith。没有什么比与时代最大的变化、最高的斜率、最好的人物站在一起更让人心潮澎湃了。期待能获得一次面试机会，与你们并肩书写未来。
+            </p>
+            
+            <p style="text-align: right; margin-top: 30px; font-size: 0.95rem; color: var(--text-muted);">
+                苏子琦<br>
+                浙江大学 工商管理
+            </p>
+        </div>
+    </section>
+
+    </section>
+
+    <footer>
+        <p>“做未来的书写者。”</p>
+    </footer>
+</div>
+
+</body>
+</html>
